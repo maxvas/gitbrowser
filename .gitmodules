@@ -1,0 +1,3 @@
+[submodule "qfs"]
+	path = qfs
+	url = https://github.com/maxvas/qfs
