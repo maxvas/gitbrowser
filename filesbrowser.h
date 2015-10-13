@@ -11,7 +11,7 @@
 
 #include "git/gitmanager.h"
 #include "reposettings.h"
-#include "../qfs/qfilemanager.h"
+#include "qfs/qfilemanager.h"
 #include "newdocument.h"
 
 #define UNUSED(expr) do { (void)(expr); } while (0)

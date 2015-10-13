@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.6.4)
 set(PROJECT gitbrowser)
 
 project(${PROJECT})
+add_subdirectory(qfs)
 
 find_package( Qt5 REQUIRED COMPONENTS Core Quick Declarative Gui Widgets Network Sql QuickWidgets)
 
