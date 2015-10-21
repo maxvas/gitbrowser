@@ -15,31 +15,54 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>2</number>
+    <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>4</number>
+    <number>0</number>
    </property>
    <item>
-    <widget class="QToolBar" name="toolBar"/>
-   </item>
-   <item>
-    <widget class="QToolBar" name="navigationPanel"/>
-   </item>
-   <item>
-    <widget class="QListView" name="listView">
-     <property name="alternatingRowColors">
-      <bool>true</bool>
+    <widget class="QToolBar" name="toolBar">
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolBar" name="navigationPanel">
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="handleWidth">
+      <number>0</number>
+     </property>
+     <widget class="QTreeView" name="treeView"/>
+     <widget class="QListView" name="listView">
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>

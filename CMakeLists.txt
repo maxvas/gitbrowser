@@ -3,6 +3,7 @@ set(PROJECT gitbrowser)
 
 project(${PROJECT})
 add_subdirectory(qfs)
+add_subdirectory(qjs)
 
 find_package( Qt5 REQUIRED COMPONENTS Core Quick Declarative Gui Widgets Network Sql QuickWidgets)
 
@@ -14,6 +15,9 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../qfs)
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../qfs)
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/qjs/src)
+LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/qjs/src)
 
 SET(CMAKE_SHARED_LIBRARY_PREFIX "")
 
@@ -27,10 +31,12 @@ set(HEADERS
     syncdialog.h
     texteditor.h
     versionbrowserdialog.h
+    repotree/treeitemdelegate.h
+    repotree/qjsmodel.h
+    mainwindow.h
 )
 
 set(SOURCES
-    main.cpp
     git/commitinfo.cpp
     git/gitmanager.cpp
     git/shell.cpp
@@ -40,6 +46,9 @@ set(SOURCES
     syncdialog.cpp
     texteditor.cpp
     versionbrowserdialog.cpp
+    repotree/treeitemdelegate.cpp
+    repotree/qjsmodel.cpp
+    mainwindow.cpp
 )
 
 set(UI
@@ -49,6 +58,7 @@ set(UI
     syncdialog.ui
     texteditor.ui
     versionbrowserdialog.ui
+    mainwindow.ui
 )
 
 set(RESOURCES
@@ -56,7 +66,10 @@ set(RESOURCES
 )
 
 set(QMLS
-    WaitingWindow.qml
+    qml/MainWindow.qml
+    qml/WaitingWindow.qml
+    qml/RepoPanel.qml
+    qml/RepoModel.qml
 )
 SET (MOC_SOURCES )
 SET (UIS )
@@ -79,11 +92,13 @@ if (${UNIX})
 endif (${UNIX})
 
 add_library ( ${PROJECT} SHARED ${HEADERS} ${SOURCES} ${QMLS} ${MOC_SOURCES} ${UIS} ${RESSRC})
-#add_executable(${PROJECT} ${HEADERS} ${SOURCES} ${MOC_SOURCES} ${UIS} ${RESSRC})
+add_executable(${PROJECT}GUI ${HEADERS} ${SOURCES} main.cpp ${QMLS} ${MOC_SOURCES} ${UIS} ${RESSRC})
 
 qt5_use_modules(${PROJECT} Widgets Quick Declarative Core Network Sql QuickWidgets)
+qt5_use_modules(${PROJECT}GUI Widgets Quick Declarative Core Network Sql QuickWidgets)
 
-target_link_libraries(${PROJECT} qfs)
+target_link_libraries(${PROJECT} qfs qjs)
+target_link_libraries(${PROJECT}GUI qfs qjs)
 install(TARGETS ${PROJECT} DESTINATION ${CMAKE_BINARY_DIR}/bin)
 install(FILES ${QMLS} DESTINATION ${CMAKE_BINARY_DIR}/bin)
 #if(WIN32)

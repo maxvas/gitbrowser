@@ -19,6 +19,8 @@
 #include "texteditor.h"
 #include "newdocument.h"
 #include <QQuickView>
+#include "repotree/qjsmodel.h"
+#include "repotree/treeitemdelegate.h"
 
 GitBrowser::GitBrowser(QString localRepoFolder, QWidget *parent) :
     QWidget(parent), newDocumentDialog(0)
@@ -44,9 +46,9 @@ GitBrowser::GitBrowser(QString localRepoFolder, QWidget *parent) :
     repoSettingsDialog = new RepoSettings(this);
     connect(repoSettingsDialog, SIGNAL(changed()), this, SLOT(updateRepoParams()));
     git = new GitManager(repoFolder);
-    actUpdate = new QAction(QIcon(":/images/arrow-circle-315.png"), "Обновить", this);
+    actUpdate = new QAction(QIcon(":/images/refresh.png"), "Обновить", this);
     connect(actUpdate, SIGNAL(triggered()), this, SLOT(callUpdate()));
-    actUp = new QAction(QIcon(":/images/arrow-090.png"), "Перейти на каталог выше", this);
+    actUp = new QAction(QIcon(":/images/arrow-up.png"), "Перейти на каталог выше", this);
     connect(actUp, SIGNAL(triggered()), this, SLOT(up()));
     actGo = new QAction(QIcon(":/images/go.png"), "Перейти", this);
     connect(actGo, SIGNAL(triggered()), this, SLOT(onGoBtn_clicked()));
@@ -78,6 +80,35 @@ GitBrowser::GitBrowser(QString localRepoFolder, QWidget *parent) :
     connect(pathLE, SIGNAL(returnPressed()), this, SLOT(onLineEdit_returnPressed()));
     ui->navigationPanel->addWidget(pathLE);
     ui->navigationPanel->addActions(QList<QAction* >()<<actGo);
+    QList<int> list= ui->splitter->sizes();
+    list.replace(0,200);
+    list.replace(1,this->width()-200);
+    ui->splitter->setSizes(list);
+    QJS rootItem;
+    rootItem["name"] = "Хранилища";
+    QJS n1;
+    n1["name"] = "Отчеты";
+    n1["type"] = "folder";
+    QJS n2;
+    n2["name"] = "Карточки";
+    n2["type"] = "folder";
+    QJS n3;
+    n3["name"] = "Инструкции";
+    n3["type"] = "folder";
+    QJS n4;
+    n4["name"] = "Генетические отчеты";
+    n4["type"] = "folder";
+    QJS n5;
+    n5["name"] = "Прочие отчеты";
+    n5["type"] = "folder";
+    n1["children"][0] = n4;
+    n1["children"][1] = n5;
+    rootItem["children"][0] = n1;
+    rootItem["children"][1] = n2;
+    rootItem["children"][2] = n3;
+    QJSModel *rm = new QJSModel(rootItem);
+    rm->setIcon("folder", "://images/folder.png");
+    ui->treeView->setModel(rm);
     go("/");
     connect(syncWidget, SIGNAL(retry()), this, SLOT(retry()));
 }
