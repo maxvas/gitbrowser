@@ -1,3 +1,6 @@
 [submodule "qfs"]
 	path = qfs
 	url = https://github.com/maxvas/qfs
+[submodule "qjs"]
+	path = qjs
+	url = https://github.com/maxvas/qjs.git
