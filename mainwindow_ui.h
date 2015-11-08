@@ -12,6 +12,7 @@
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <QtWidgets/QLineEdit>
 
 QT_BEGIN_NAMESPACE
 
@@ -25,6 +26,24 @@ public:
     QSplitter *splitter;
     QTreeView *treeView;
     QListView *listView;
+    QLineEdit *linePath;
+    //Действия
+    QAction *actUpdate;
+    QAction *actUp;
+    QAction *actGo;
+    QAction *actOpen;
+    QAction *actVersions;
+    QAction *actRename;
+    QAction *actRemove;
+    QAction *actNewDir;
+    QAction *actNewDocument;
+    QAction *actCopy;
+    QAction *actCut;
+    QAction *actPaste;
+    QAction *actAddRepository;
+    QAction *actRemoveRepository;
+    QAction *actEditRepository;
+
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -37,6 +56,22 @@ public:
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
+
+        //Actions
+        actUpdate = new QAction(QIcon(":/images/refresh.png"), "Обновить", MainWindow);
+        actUp = new QAction(QIcon(":/images/arrow-up.png"), "Перейти на каталог выше", MainWindow);
+        actGo = new QAction(QIcon(":/images/go.png"), "Перейти", MainWindow);
+        actOpen = new QAction("Открыть", MainWindow);
+        actVersions = new QAction("Версии...", MainWindow);
+        actRename = new QAction("Переименовать", MainWindow);
+        actRemove = new QAction("Удалить", MainWindow);
+        actNewDir = new QAction("Новая папка", MainWindow);
+        actNewDocument = new QAction(QIcon(":/images/new-document.png"), "Новый документ", MainWindow);
+        actCopy = new QAction("Копировать", MainWindow);
+        actCut = new QAction("Вырезать", MainWindow);
+        actPaste = new QAction("Вставить", MainWindow);
+        actRepoSettings = new QAction(QIcon(":/images/settings.png"), "Настройки репозитория", MainWindow);
+
         toolBar = new QToolBar(centralWidget);
         toolBar->setObjectName(QStringLiteral("toolBar"));
         toolBar->setIconSize(QSize(20, 20));
@@ -46,6 +81,10 @@ public:
         navigationPanel = new QToolBar(centralWidget);
         navigationPanel->setObjectName(QStringLiteral("navigationPanel"));
         navigationPanel->setIconSize(QSize(20, 20));
+        navigationPanel->addAction(actUpdate);
+        linePath = new QLineEdit();
+        navigationPanel->addWidget(linePath);
+        navigationPanel->addAction(actGo);
 
         verticalLayout->addWidget(navigationPanel);
 

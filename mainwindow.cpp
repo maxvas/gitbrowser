@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     QJS rootItem;
-    rootItem["name"] = "Хранилища";
+    rootItem["name"] = "Репозитории";
     QJS n1;
     n1["name"] = "Отчеты";
     n1["type"] = "folder";
