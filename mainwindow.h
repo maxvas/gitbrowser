@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QJSModel *rm;
+    QJSModel *model;
 };
 
 #endif // MAINWINDOW_H

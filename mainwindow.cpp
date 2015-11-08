@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "mainwindow_ui.h"
 #include <iostream>
 #include "repotree/treeitemdelegate.h"
 
@@ -25,23 +25,16 @@ MainWindow::MainWindow(QWidget *parent) :
     n4["name"] = "Генетические отчеты";
     n4["type"] = "folder";
     QJS n5;
-    n4["name"] = "Прочие отчеты";
-    n4["type"] = "folder";
+    n5["name"] = "Прочие отчеты";
+    n5["type"] = "folder";
     n1["children"][0] = n4;
     n1["children"][1] = n5;
     rootItem["children"][0] = n1;
     rootItem["children"][1] = n2;
-    rootItem["children"][1] = n3;
-    cout<<rootItem.toJson().toStdString();
-    cout.flush();
-    rm = new QJSModel(rootItem, this);
+    rootItem["children"][2] = n3;
+    QJSModel *rm = new QJSModel(rootItem);
     rm->setIcon("folder", "://images/folder.png");
     ui->treeView->setModel(rm);
-    ui->treeView->setItemDelegate(new TreeItemDelegate(ui->treeView));
-    ui->treeView->viewport()->setAttribute(Qt::WA_Hover);
-    ui->treeView->setStyleSheet("QTreeView {\
-                                background-color: white;\
-                            }");
 }
 
 MainWindow::~MainWindow()

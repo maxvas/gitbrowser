@@ -80,10 +80,6 @@ GitBrowser::GitBrowser(QString localRepoFolder, QWidget *parent) :
     connect(pathLE, SIGNAL(returnPressed()), this, SLOT(onLineEdit_returnPressed()));
     ui->navigationPanel->addWidget(pathLE);
     ui->navigationPanel->addActions(QList<QAction* >()<<actGo);
-    QList<int> list= ui->splitter->sizes();
-    list.replace(0,200);
-    list.replace(1,this->width()-200);
-    ui->splitter->setSizes(list);
     QJS rootItem;
     rootItem["name"] = "Хранилища";
     QJS n1;

@@ -13,12 +13,12 @@ int main(int argc, char *argv[])
 //    QQmlApplicationEngine engine;
 //    engine.rootContext()->setContextProperty("repoModel", rm);
 //    engine.load(QUrl(QStringLiteral("qrc:///qml/MainWindow.qml")));
-    GitBrowser window(QDir::homePath()+"/lims/documents");
-    window.readRepoConfigOrAskUser();
-    window.addToolBarAction("settings");
-    window.addToolBarAction("new-document");
-    window.show();
-//    MainWindow window;
+//    GitBrowser window(QDir::homePath()+"/lims/documents");
+//    window.readRepoConfigOrAskUser();
+//    window.addToolBarAction("settings");
+//    window.addToolBarAction("new-document");
 //    window.show();
+    MainWindow window;
+    window.show();
     return a.exec();
 }
